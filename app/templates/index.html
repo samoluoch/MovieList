@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+ 
+        <!-- Styles block -->
+        {% block styles%}
+            {{ super() }}
+            <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+        {% endblock %}
+        <body>
+        <!-- Content block -->
+        {% block content %}
+
+
+        <!--popular movies section-->
+        <h3>Popular Movies</h3>
+        <ul>
+            {{ macro.displayMovieList(popular) }}
+        </ul>
+        <!-- Upcoming movie  -->
+        <h3> Upcoming Movies </h3>
+         <ul>
+            {{ macro.displayMovieList(upcoming) }}
+        </ul>
+        <!-- Now showing movie -->
+        <h3>Now Showing</h3>
+         <ul>
+            {{ macro.displayMovieList(now_showing) }}
+        </ul>
+
+        {% endblock %}
+
+    </body>
+
+<!--We use the 'block styles' block provided by the bootstrap/base.html file. 
+    Before adding our content, we create a variable block and call the super() function. 
+    This tells Jinja not to override any code that is defined in the block. 
+    This is because the bootstrap/base.html has defined links to the bootstrap css files and we do not want to override those links.
+    We us the url_for() function to create a link to the static file. The function takes in the view function as the first argument, which is 'static'
+    and then we pass in the dynamic filename css/index.css-->
+
