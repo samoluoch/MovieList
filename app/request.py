@@ -3,7 +3,7 @@ import urllib.request,json
 from .models import movie
 
 Movie = movie.Movie
-#We import the flask application instance and then import the Python urllib.request module 
+# We import the flask application instance and then import the Python urllib.request module 
 # that will help us create a connection to our API URL and send a request to json modules 
 # that will format JSON response to a Python dictionary.
 
@@ -99,7 +99,22 @@ def get_movie(id):
 # In the above, we create a get_movie() function that takes in a movie id and returns a movie object. 
 # We create a get_movie_details URL by formatting the base URL with id and API key. We then create a request and load the data and create a movie object.
 
+def search_movie(movie_name):
+    search_movie_url = 'https://api.themoviedb.org/3/search/movie?api_key={}&query={}'.format(api_key,movie_name)
+    with urllib.request.urlopen(search_movie_url) as url:
+        search_movie_data = url.read()
+        search_movie_response = json.loads(search_movie_data)
+
+        search_movie_results = None
+
+        if search_movie_response['results']:
+            search_movie_list = search_movie_response['results']
+            search_movie_results = process_results(search_movie_list)
+
+    return search_movie_results
 
 
+# In the above, we use a URL for search request that passes in our API key and the movie name then we create the request and process the results. 
+# We then create the view function for the search route.
 
 
