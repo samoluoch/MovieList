@@ -15,6 +15,9 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    # simple mde  configurations
+    SIMPLEMDE_JS_IIFE = True
+    SIMPLEMDE_USE_CDN = True
 
 
 
@@ -31,6 +34,9 @@ class ProdConfig(Config):
     '''
     pass
 
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sam:sam123@localhost/watchlist_test'
+
 class DevConfig(Config):
     '''
     Development configuration child class
@@ -38,10 +44,12 @@ class DevConfig(Config):
     Arrgs:
         Config the parent configuration class with the general config settings
     '''
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sam:sam123@localhost/watchlist'
 
     DEBUG = True
 
 config_options = {
     'development': DevConfig,
-    'production': ProdConfig
+    'production': ProdConfig,
+    'test':TestConfig
 }

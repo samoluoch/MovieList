@@ -5,12 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
+from flask_simplemde import SimpleMDE
 
 
 # initializing Flask Extensions
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 mail = Mail()
+simple = SimpleMDE()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -49,5 +51,7 @@ def create_app(config_name):
 
     
     mail.init_app(app)
+
+    simple.init_app(app)
 
     return app
